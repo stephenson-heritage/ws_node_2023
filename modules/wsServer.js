@@ -1,6 +1,8 @@
 const { WebSocketServer } = require('ws');
 
-const wsConnection = require('./wsConnection');
+
+//import WebSocketService from '/js/ws.js';
+const wsConnection = require('./wsConnection.js');
 
 
 class wsServer {
@@ -26,7 +28,7 @@ class wsServer {
     broadcastMessage = function (sender, msg) {
         for (const wsc of this.wsConnections.connections) {
             if (wsc.userId != sender.userId) {
-                wsc.sendMessage(`[${sender.userId}]  ${msg}`);
+                wsc.sendMessage(`${msg}`,sender);
             }
         }
     }

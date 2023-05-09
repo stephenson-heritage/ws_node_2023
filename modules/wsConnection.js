@@ -1,3 +1,5 @@
+const dateFns = require('date-fns');
+
 
 class wsConnection {
 
@@ -9,6 +11,7 @@ class wsConnection {
         this.server = server;
         this.userId = userId;
         connection.on('error', () => console.log("connection error"));
+        server.broadcastMessage(this, 'connected');
 
         connection.on('message', (data) => {
             const dataMsg = JSON.parse(data);
@@ -23,8 +26,8 @@ class wsConnection {
         });
     }
 
-    sendMessage(msg) {
-        const dataMsg = { type: "message", data: msg };
+    sendMessage(msg, sender) {
+        const dataMsg = { type: "message", data: msg, sender: sender!=null?sender.userId:null, time: dateFns.formatISO(new Date())};
         this.connection.send(JSON.stringify(dataMsg)); // send message to this specific client (on this connection)
     }
 

@@ -13,9 +13,9 @@ class WebSocketService {
             }
         };
 
-        this.connection.onopen = () => {
-            this.sendMessage("hello server, this is the client!");
-        }
+        // this.connection.onopen = () => {
+        //     this.sendMessage("hello server, this is the client!");
+        // }
     }
 
     sendMessage(msg) {
